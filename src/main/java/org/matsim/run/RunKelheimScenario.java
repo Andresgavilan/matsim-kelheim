@@ -93,7 +93,7 @@ public class RunKelheimScenario extends MATSimApplication {
 	private static final double WEIGHT_7_PASSENGER = 1.;
 	private static final double WEIGHT_8_PASSENGER = 0.;
 	@CommandLine.Mixin
-	private final SampleOptions sample = new SampleOptions(25, 10, 1);
+	private final SampleOptions sample = new SampleOptions( 1);
 
 	@CommandLine.Option(names = "--with-drt", defaultValue = "false", description = "enable DRT service")
 	private boolean drt;
@@ -158,6 +158,7 @@ public class RunKelheimScenario extends MATSimApplication {
 		));
 		drtWithExtensionsConfigGroup.addParameterSet(drtCompanionParams);
 	}
+
 
 	@Nullable
 	@Override
@@ -349,6 +350,7 @@ public class RunKelheimScenario extends MATSimApplication {
 			controler.addOverridingModule(new MultiModeDrtModule());
 			controler.addOverridingModule(new MultiModeDrtCompanionModule());
 			controler.configureQSimComponents(DvrpQSimComponents.activateAllModes(multiModeDrtConfig));
+			controler.addOverridingModule(new SimWrapperModule());
 
 			// Add speed limit to av vehicle
 			double maxSpeed = controler.getScenario()

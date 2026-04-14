@@ -25,7 +25,8 @@ public class KelheimDashboardProvider implements DashboardProvider {
 		return List.of(
 			trips,
 			new TravelTimeComparisonDashboard(IOUtils.resolveFileOrResource( "kelheim-v3.0-routes-ref.csv.gz").toString()),
-			new KelheimEmissionsDashboard()
+			new KelheimEmissionsDashboard(),
+			new OutputTripsDashboard()
 			//the NoiseAnalysis needs more RAM than the entire simulation, which leads to VM crashes and prevents other analysis to run. We have to run it separately (e.g. with KelheimSimWrapperRunner)
 //			new NoiseDashboard()
 		);

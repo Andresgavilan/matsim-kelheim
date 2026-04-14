@@ -2,6 +2,33 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "type": "java",
+            "name": "RunDrtOnlyScenario",
+            "request": "launch",
+            "mainClass": "org.matsim.run.RunDrtOnlyScenario",
+            "projectName": "matsim-kelheim"
+        },
+        {
+            "type": "java",
+            "name": "RunKelheimRealDrtDemands",
+            "request": "launch",
+            "mainClass": "org.matsim.run.RunKelheimRealDrtDemands",
+            "projectName": "matsim-kelheim"
+        },
+        {
+            "type": "java",
+            "name": "RemoveHighways",
+            "request": "launch",
+            "mainClass": "org.matsim.run.RemoveHighways",
+            "projectName": "matsim-kelheim"
+        },
+        {
+            "type": "java",
+            "name": "Launch Java Program",
+            "request": "launch",
+            "mainClass": ""
+        },
+        {
             "args": [
                 "--extensionDevelopmentPath=${workspaceFolder}"
             ],
@@ -13,16 +40,12 @@
             "request": "launch",
             "type": "extensionHost"
         },
-
         {
             "type": "java",
             "name": "RunKelheimScenario",
             "request": "launch",
             "mainClass": "org.matsim.run.RunKelheimScenario",
-            "args": "run --1pct",
-            "args": "run --10pct --with-drt",
-            "args": "run --25pct"
-
+            "args": "run --1pct --config:controler.overwriteFiles=deleteDirectoryIfExists"
         }
     ]
 }
