@@ -84,9 +84,10 @@ import java.util.stream.Collectors;
 		"emissions_per_link_per_m.csv",
 		"emissions_grid_per_hour.csv",
 		"emissions_vehicle_info.csv",
-		"emissionNetwork.xml.gz"
+		"emissionNetwork.xml.zst"
 	}
 )
+
 public class KelheimOfflineAirPollutionAnalysisByEngineInformation implements MATSimAppCommand {
 
 	private static final Logger log = LogManager.getLogger(KelheimOfflineAirPollutionAnalysisByEngineInformation.class);
@@ -125,9 +126,15 @@ public class KelheimOfflineAirPollutionAnalysisByEngineInformation implements MA
 		return 0;
 	}
 
-	public static void main(String[] args) throws IOException {
-		new KelheimOfflineAirPollutionAnalysisByEngineInformation().execute(args);
-	}
+    public static void main(String[] args) throws IOException {
+		        args = new String[]{
+			            "--run-directory=/Users/zekiaga/Documents/MATSIM/matsim-example-project/output",
+			            "--events=/Users/zekiaga/Documents/MATSIM/matsim-example-project/output/run.0.events.xml.zst",
+			            "--network=/Users/zekiaga/Documents/MATSIM/matsim-example-project/output/run.0.network.xml.zst",
+			            "--sample-size=0.01"
+			        };
+		        new KelheimOfflineAirPollutionAnalysisByEngineInformation().execute(args);
+		    }
 
 	/**
 	 * process output events, compute emission events and dump output.
@@ -141,7 +148,7 @@ public class KelheimOfflineAirPollutionAnalysisByEngineInformation implements MA
 		//------------------------------------------------------------------------------
 
 
-		NetworkUtils.writeNetwork(scenario.getNetwork(), output.getPath( "emissionNetwork.xml.gz").toString());
+		NetworkUtils.writeNetwork(scenario.getNetwork(), output.getPath( "emissionNetwork.xml.zst").toString());
 
 		final String eventsFile = input.getEventsPath();
 
@@ -214,9 +221,9 @@ public class KelheimOfflineAirPollutionAnalysisByEngineInformation implements MA
 	 * set all input files in EmissionConfigGroup as well as input from the MATSim run.
 	 * @return the adjusted config
 	 */
-	private Config prepareConfig() {
+	public Config prepareConfig() {
 		Config config = ConfigUtils.createConfig();
-		config.vehicles().setVehiclesFile(ApplicationUtils.matchInput("allVehicles.xml.gz", input.getRunDirectory()).toAbsolutePath().toString());
+		config.vehicles().setVehiclesFile(ApplicationUtils.matchInput("allVehicles", input.getRunDirectory()).toAbsolutePath().toString());
 		config.network().setInputFile(ApplicationUtils.matchInput("network", input.getRunDirectory()).toAbsolutePath().toString());
 		config.transit().setTransitScheduleFile(ApplicationUtils.matchInput("transitSchedule", input.getRunDirectory()).toAbsolutePath().toString());
 		config.transit().setVehiclesFile(ApplicationUtils.matchInput("transitVehicles", input.getRunDirectory()).toAbsolutePath().toString());
